@@ -5,6 +5,7 @@ RESTful NestJS backend for agri-dealers to manage inventory and process farmer o
 ## Quick start
 
 ```bash
+adjust .env configs to point to local mysqldb
 npm install
 npm run start:dev
 ```
