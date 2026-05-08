@@ -1,0 +1,100 @@
+CREATE TABLE products (
+  id varchar(36) PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  category varchar(255) NOT NULL,
+  unit varchar(255) NOT NULL DEFAULT 'kg',
+  createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+);
+
+CREATE TABLE pricing_tiers (
+  id varchar(36) PRIMARY KEY,
+  region varchar(255) NOT NULL DEFAULT 'default',
+  minQuantity decimal(12,2) NOT NULL,
+  maxQuantity decimal(12,2) NULL,
+  pricePerUnit decimal(12,2) NOT NULL,
+  productId varchar(36),
+  CONSTRAINT fk_pricing_tiers_product
+    FOREIGN KEY (productId) REFERENCES products(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE dealers (
+  id varchar(36) PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  region varchar(255) NOT NULL,
+  address varchar(255) NOT NULL,
+  latitude decimal(10,7) NOT NULL,
+  longitude decimal(10,7) NOT NULL,
+  fulfillmentPerformance decimal(5,2) NOT NULL DEFAULT 80,
+  createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+);
+
+CREATE TABLE dealer_inventory (
+  id varchar(36) PRIMARY KEY,
+  quantityAvailable decimal(12,2) NOT NULL,
+  stockFreshnessDays int NOT NULL DEFAULT 0,
+  priceAdjustmentPercent decimal(6,2) NOT NULL DEFAULT 0,
+  dealerId varchar(36),
+  productId varchar(36),
+  CONSTRAINT fk_inventory_dealer
+    FOREIGN KEY (dealerId) REFERENCES dealers(id)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_inventory_product
+    FOREIGN KEY (productId) REFERENCES products(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+  id varchar(36) PRIMARY KEY,
+  farmerName varchar(255) NOT NULL,
+  farmerRegion varchar(255) NOT NULL,
+  farmerLatitude decimal(10,7) NOT NULL,
+  farmerLongitude decimal(10,7) NOT NULL,
+  status enum(
+    'PENDING',
+    'BACKORDERED',
+    'CONFIRMED',
+    'IN_TRANSIT',
+    'DELIVERED',
+    'CANCELLED'
+  ) NOT NULL DEFAULT 'PENDING',
+  totalCost decimal(12,2) NOT NULL DEFAULT 0,
+  assignedDealerId varchar(36) NULL,
+  assignedDealerName varchar(255) NULL,
+  distanceKm decimal(8,2) NULL,
+  estimatedDeliveryWindow varchar(80) NULL,
+  backorder json NULL,
+  createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+);
+
+CREATE TABLE order_items (
+  id varchar(36) PRIMARY KEY,
+  quantity decimal(12,2) NOT NULL,
+  orderId varchar(36),
+  productId varchar(36),
+  CONSTRAINT fk_order_items_order
+    FOREIGN KEY (orderId) REFERENCES orders(id)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_order_items_product
+    FOREIGN KEY (productId) REFERENCES products(id)
+);
+
+CREATE TABLE order_allocations (
+  id varchar(36) PRIMARY KEY,
+  quantity decimal(12,2) NOT NULL,
+  unitPrice decimal(12,2) NOT NULL,
+  lineTotal decimal(12,2) NOT NULL,
+  orderId varchar(36),
+  dealerId varchar(36),
+  productId varchar(36),
+  CONSTRAINT fk_allocations_order
+    FOREIGN KEY (orderId) REFERENCES orders(id)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_allocations_dealer
+    FOREIGN KEY (dealerId) REFERENCES dealers(id),
+  CONSTRAINT fk_allocations_product
+    FOREIGN KEY (productId) REFERENCES products(id)
+);
