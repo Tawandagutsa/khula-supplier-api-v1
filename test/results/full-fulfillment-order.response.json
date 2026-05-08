@@ -1,0 +1,30 @@
+{
+  "id": "saved-order-id",
+  "farmerName": "Interview Demo Farmer",
+  "farmerRegion": "KwaZulu-Natal",
+  "status": "PENDING",
+  "assignedDealerId": "midlands",
+  "assignedDealerName": "Midlands Bulk Inputs",
+  "totalCost": 1292,
+  "distanceKm": 20.81,
+  "estimatedDeliveryWindow": "same day",
+  "items": [
+    {
+      "productId": "fertilizer-id",
+      "productName": "NPK Fertilizer",
+      "quantity": 80
+    }
+  ],
+  "allocations": [
+    {
+      "dealerId": "midlands",
+      "dealerName": "Midlands Bulk Inputs",
+      "productId": "fertilizer-id",
+      "productName": "NPK Fertilizer",
+      "quantity": 80,
+      "unitPrice": 16.15,
+      "lineTotal": 1292
+    }
+  ],
+  "backorder": null
+}

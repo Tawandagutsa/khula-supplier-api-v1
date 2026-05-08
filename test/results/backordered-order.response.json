@@ -1,0 +1,47 @@
+{
+  "id": "saved-order-id",
+  "farmerName": "Backorder Farmer",
+  "farmerRegion": "KwaZulu-Natal",
+  "status": "BACKORDERED",
+  "assignedDealerId": null,
+  "assignedDealerName": null,
+  "totalCost": 4687.2,
+  "distanceKm": null,
+  "estimatedDeliveryWindow": "pending supplier confirmation",
+  "items": [
+    {
+      "productId": "herbicide-id",
+      "productName": "Broadleaf Herbicide",
+      "quantity": 60
+    }
+  ],
+  "allocations": [
+    {
+      "dealerId": "umzimkhulu",
+      "dealerName": "Umzimkhulu Farmer Co-op",
+      "productId": "herbicide-id",
+      "productName": "Broadleaf Herbicide",
+      "quantity": 12,
+      "unitPrice": 115.2,
+      "lineTotal": 1382.4
+    },
+    {
+      "dealerId": "green-valley",
+      "dealerName": "Green Valley Agri Depot",
+      "productId": "herbicide-id",
+      "productName": "Broadleaf Herbicide",
+      "quantity": 30,
+      "unitPrice": 110.16,
+      "lineTotal": 3304.8
+    }
+  ],
+  "backorder": {
+    "remaining": [
+      {
+        "productId": "herbicide-id",
+        "quantity": 18
+      }
+    ],
+    "notifySuppliers": true
+  }
+}

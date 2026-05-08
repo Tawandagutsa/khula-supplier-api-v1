@@ -1,0 +1,44 @@
+{
+  "id": "saved-order-id",
+  "farmerName": "Multi Item Farmer",
+  "farmerRegion": "KwaZulu-Natal",
+  "status": "PENDING",
+  "assignedDealerId": "basket-dealer",
+  "assignedDealerName": "Basket Dealer",
+  "totalCost": 1870,
+  "distanceKm": 34.66,
+  "estimatedDeliveryWindow": "1-2 business days",
+  "items": [
+    {
+      "productId": "fertilizer-id",
+      "productName": "NPK Fertilizer",
+      "quantity": 30
+    },
+    {
+      "productId": "maize-seed-id",
+      "productName": "Hybrid Maize Seed",
+      "quantity": 20
+    }
+  ],
+  "allocations": [
+    {
+      "dealerId": "basket-dealer",
+      "dealerName": "Basket Dealer",
+      "productId": "fertilizer-id",
+      "productName": "NPK Fertilizer",
+      "quantity": 30,
+      "unitPrice": 19,
+      "lineTotal": 570
+    },
+    {
+      "dealerId": "basket-dealer",
+      "dealerName": "Basket Dealer",
+      "productId": "maize-seed-id",
+      "productName": "Hybrid Maize Seed",
+      "quantity": 20,
+      "unitPrice": 65,
+      "lineTotal": 1300
+    }
+  ],
+  "backorder": null
+}
